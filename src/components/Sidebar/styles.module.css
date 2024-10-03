@@ -1,6 +1,6 @@
 .sidebar {
   background-color: var(--gray-800);
-  border-radius: 0.5rem;
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -33,9 +33,9 @@
   box-sizing: initial;
   width: 3rem;
   height: 3rem;
-  border-radius: 0.5rem;
+  border-radius: 8px;
   border: 4px solid var(--gray-800);
-  outline: 2px solid var(--green-100);
+  outline: 2px solid var(--green-500);
 }
 
 .sidebar footer {
@@ -49,9 +49,9 @@
   height: 3.125rem;
 
   background-color: transparent;
-  color: var(--green-100);
-  border: 1px solid var(--green-100);
-  border-radius: 0.5rem;
+  color: var(--green-500);
+  border: 1px solid var(--green-500);
+  border-radius: 8px;
 
   padding: 0 1.5rem;
   
@@ -67,6 +67,6 @@
 }
 
 .sidebar footer a:hover {
-  background-color: var(--green-100);
+  background-color: var(--green-500);
   color: var(--white);
 }
