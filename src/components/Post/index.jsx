@@ -1,38 +1,53 @@
+/* eslint-disable react/prop-types */
+import { format, formatDistanceToNow } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
+
 import { Avatar } from '../Avatar';
 import { Comment } from '../Comment';
 import styles from './styles.module.css';
 
-export function Post() {
+export function Post({ author, publishedAt, content }) {
+  const publishedDateFormatted = format(publishedAt, "dd 'de' LLLL 'às' HH:mm'h'", { 
+    locale: ptBR 
+  })
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true
+  })
+   
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src="https://github.com/maykbrito.png" />
+          <Avatar src={author.avatarUrl} />
           <div className={styles.authorInfo}>
-            <strong>Lucas Borges</strong>
-            <span>FullStack Developer</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
         <time 
-          title='03 de Outubro as 16:32h'
-          dateTime='2024-10-03 16:32:00'
+          title={publishedDateFormatted}
+          dateTime={publishedAt.toISOString()}
         >
-          Publicado há 1h
+          {publishedDateRelativeToNow}
         </time>
       </header>
 
       <div className={styles.content}>
-        <p>Fala galeraa 👋</p> 
+        {content.map(line => {
+          if(line.type === 'paragraph') {
+            return <p key={line.content}>{line.content}</p>
+          }
 
-        <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-
-        <p><a href="https://www.google.com">jane.design/doctorcare</a></p>
-
-        <p>
-          <a href="https://www.google.com">#novoprojeto</a>{' '}
-          <a href="https://www.google.com">#nlw</a>{' '}
-          <a href="https://www.google.com">#rocketseat</a>{' '}
-        </p>
+          if(line.type === 'link') {
+            return (
+              <p key={line.content}>
+                <a href="">{line.content}</a>
+              </p>
+            )
+          }
+        })}
       </div>
 
       <form className={styles.commentForm}>
